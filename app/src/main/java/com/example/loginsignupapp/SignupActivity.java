@@ -24,7 +24,6 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        // Initialize UI elements
         usernameEditText = findViewById(R.id.usernameEditText);
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
@@ -32,7 +31,6 @@ public class SignupActivity extends AppCompatActivity {
         signupButton = findViewById(R.id.signupButton);
         loginTextView = findViewById(R.id.loginTextView);
 
-        // Set up signup button click listener
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,11 +38,10 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        // Set up login text click listener
         loginTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish(); // Go back to login activity
+                finish();
             }
         });
     }
@@ -55,7 +52,6 @@ public class SignupActivity extends AppCompatActivity {
         String password = passwordEditText.getText().toString().trim();
         String confirmPassword = confirmPasswordEditText.getText().toString().trim();
 
-        // Validate input
         if (TextUtils.isEmpty(username)) {
             usernameEditText.setError("Username is required");
             return;
@@ -86,20 +82,15 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
-        // Create user object
         User user = new User(username, email, password);
 
-        // Save user to file
         boolean isSuccess = FileHelper.saveUser(this, user);
 
         if (isSuccess) {
-            // Registration successful
             Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
 
-            // Navigate to login screen or directly to home screen
-            finish(); // Go back to login screen
+            finish();
         } else {
-            // Registration failed
             Toast.makeText(this, "Username already exists", Toast.LENGTH_SHORT).show();
         }
     }

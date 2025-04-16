@@ -17,7 +17,6 @@ public class FileHelper {
 
     public static boolean saveUser(Context context, User user) {
         try {
-            // Check if user already exists
             List<User> existingUsers = getUsers(context);
             for (User existingUser : existingUsers) {
                 if (existingUser.getUsername().equals(user.getUsername())) {
@@ -26,7 +25,6 @@ public class FileHelper {
                 }
             }
 
-            // Append mode - add the user to the end of the file
             FileOutputStream fos = context.openFileOutput(FILE_NAME, Context.MODE_APPEND);
             fos.write((user.toString() + "\n").getBytes());
             fos.close();
@@ -59,7 +57,6 @@ public class FileHelper {
             fis.close();
         } catch (IOException e) {
             Log.e(TAG, "Error reading users: " + e.getMessage());
-            // File might not exist yet, which is fine
         }
 
         return users;

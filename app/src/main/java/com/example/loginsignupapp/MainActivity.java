@@ -23,13 +23,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize UI elements
         usernameEditText = findViewById(R.id.usernameEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         loginButton = findViewById(R.id.loginButton);
         signupTextView = findViewById(R.id.signupTextView);
 
-        // Set up login button click listener
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Set up signup text click listener
         signupTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         String username = usernameEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
 
-        // Validate input
         if (TextUtils.isEmpty(username)) {
             usernameEditText.setError("Username is required");
             return;
@@ -62,20 +58,16 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        // Authenticate user
         boolean isAuthenticated = FileHelper.authenticateUser(this, username, password);
 
         if (isAuthenticated) {
-            // Login successful
             Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
 
-            // Navigate to home screen
             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
             intent.putExtra("USERNAME", username);
             startActivity(intent);
-            finish(); // Close the login activity
+            finish();
         } else {
-            // Login failed
             Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show();
         }
     }
